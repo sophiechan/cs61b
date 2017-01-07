@@ -1,6 +1,6 @@
 /* Set.java */
 
-import homework4.*;
+
 import homework5.list.*;
 import homework5.list.DList;
 /**
@@ -49,12 +49,12 @@ public class Set{
   public void insert(Comparable c){
     // Your solution here.
     try {
-      if (this.cardinality() == 0) {
+      if (cardinality() == 0) {
         dl.insertFront(c);
       } else {
         ListNode node = dl.front();
         Comparable item;
-        for (int i = 0; i < this.cardinality(); i++) {
+        for (int i = 0; i < cardinality(); i++) {
           item = (Comparable) node.item();
           if (item.compareTo(c) == 0) {
             return;
@@ -62,13 +62,13 @@ public class Set{
             node.insertBefore(c);
             return;
           } else {
-            node.next();
+            node = node.next();
           }
         }
         dl.insertBack(c);
       }
     } catch(InvalidNodeException err){
-      System.out.println("error");
+      System.out.println("insert error");
     }
   }
   /**
@@ -88,6 +88,51 @@ public class Set{
    **/
   public void union(Set s) {
     // Your solution here.
+    try {
+      ListNode snode = s.dl.front();
+      ListNode thisnode = dl.front();
+      if (cardinality() == 0 && s.cardinality() != 0) {
+        for (int i = 0; i < s.cardinality(); i++) {
+          thisnode.insertAfter(snode.item());
+          thisnode = thisnode.next();
+          snode = snode.next();
+        }
+      } else if(cardinality() != 0 && s.cardinality() != 0){
+        int j = 0;
+        int i = 0;
+        int thislength = cardinality();
+        int slength = s.cardinality();
+        for (; i < thislength && j < slength;) {
+            Comparable thisItem = (Comparable) thisnode.item();
+            Comparable sItem = (Comparable) snode.item();
+            if (thisItem.compareTo(sItem) == 0) {
+              snode = snode.next();
+              j++;
+            } else if (thisItem.compareTo(sItem) > 0) {
+              thisnode.insertBefore(snode.item());
+              snode = snode.next();
+              j++;
+            } else {
+              if (thisnode.next().isValidNode()){
+                thisnode = thisnode.next();
+                i++;
+              } else {
+                for (;j < slength;){
+                  thisnode.insertAfter(snode.item());
+                  snode = snode.next();
+                  thisnode = thisnode.next();
+                  i++;
+                  j++;
+                }
+              }
+            }
+        }
+
+      }
+    } catch(InvalidNodeException err){
+      System.out.println("union error");
+    }
+
   }
 
   /**
@@ -124,10 +169,21 @@ public class Set{
    **/
   public String toString() {
     // Replace the following line with your solution.
-    return "";
+//    String result = "[  ";
+//    ListNode current = dl.front();
+//    while (current.isValidNode()) {
+//      try {
+//        result = result + current.item() + "  ";
+//        current = current.next();
+//      } catch (InvalidNodeException e) {
+//        e.printStackTrace();
+//      }
+//    }
+//    return result + "]";
+    return dl.toString();
   }
 
-  public static void main(String[] argv) {
+  public static void main(String[] argv) throws InvalidNodeException {
     Set s = new Set();
     s.insert(new Integer(3));
     s.insert(new Integer(4));
@@ -135,9 +191,12 @@ public class Set{
     System.out.println("Set s = " + s);
 
     Set s2 = new Set();
+    s2.insert(new Integer(7));
+    s2.insert(new Integer(5));
+    s2.insert(new Integer(5));
     s2.insert(new Integer(4));
     s2.insert(new Integer(5));
-    s2.insert(new Integer(5));
+    s2.insert(new Integer(1));
     System.out.println("Set s2 = " + s2);
 
     Set s3 = new Set();

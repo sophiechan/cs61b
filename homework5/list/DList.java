@@ -62,6 +62,7 @@ public class DList extends List {
     head = newNode(null,null,null,null);
     head.next = head;
     head.prev = head;
+    size = 0;
   }
 
   /**
