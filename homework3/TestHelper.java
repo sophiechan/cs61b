@@ -1,5 +1,5 @@
 /* TestHelper.java */
-
+package homework3;
 /**
  *  This class is based on code from Arnow/Dexter/Weiss.  Its verify() method
  *  exits with an error message if an invariant fails to hold true.

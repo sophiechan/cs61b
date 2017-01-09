@@ -1,5 +1,5 @@
 /* Date.java */
-
+package homework2;
 class Date {
   private int month;
   private int year;

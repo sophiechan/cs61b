@@ -1,5 +1,5 @@
 /* SListNode.java */
-
+package homework3;
 /**
  *  SListNode is a class used internally by the SList class.  An SList object
  *  is a singly-linked homework4, and an SListNode is a node of a singly-linked

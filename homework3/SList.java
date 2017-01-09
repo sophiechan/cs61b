@@ -1,5 +1,5 @@
 /* SList.java */
-
+package homework3;
 /**
  *  The SList class is a singly-linked implementation of the linked homework4
  *  abstraction.  SLists are mutable data structures, which can grow at either
